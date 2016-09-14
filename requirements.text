@@ -11,3 +11,4 @@ pytz==2016.6.1
 requests==2.11.1
 six==1.10.0
 wcwidth==0.1.7
+xmltodict==0.10.2
