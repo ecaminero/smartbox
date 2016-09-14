@@ -3,7 +3,7 @@ import json, datetime, time, urllib2
 from django.http import JsonResponse
 from django.core.cache import cache
 import xmltodict
-import collections
+from collections import OrderedDict
 import pprint
 pp = pprint.PrettyPrinter(indent=6)
 
@@ -54,7 +54,7 @@ def xml_parser(func):
         games = []
         for fecha in doc['fixture']['fecha']:
             for game in fecha['partido']:
-              if isinstance(game, collections.OrderedDict) and game['estado']['@id'] == u'2':
+              if isinstance(game, OrderedDict) and game['estado']['@id'] == u'2':
                 ganador = "Empate" if game['goleslocal'] == game['golesvisitante'] else game['@nomGan']
                 fecha = "%s %s" % (game['@fecha'], game['@hora'])
                 games.append({
@@ -66,8 +66,3 @@ def xml_parser(func):
         result['partidos'] = games
         return result
     return wrapper
-
-
-{
-
-},
