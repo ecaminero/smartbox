@@ -1,5 +1,5 @@
 echo "Install Component"
-#pip install -r requirements.text
+pip install -r requirements.text
 
 echo "Deleting database"
 rm db.sqlite3
