@@ -2,6 +2,8 @@
 import json, datetime, time
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.core.cache import cache
+
 
 # Decorators
 def json_converter(func):
@@ -25,8 +27,18 @@ def execution_time(func):
         return result
     return wrapper
 
+def cache_decorator(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        if not cache.get('data'):
+          cache.set('data', result, 5)
+          time.sleep(2)
+        return result
+    return wrapper
 # Create your views here.
+
 @json_converter
+@cache_decorator
 @execution_time
 @datetime_decorator
 def index(request):
